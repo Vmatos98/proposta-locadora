@@ -146,4 +146,58 @@ button {
   .container {
     padding: 0 16px;
   }
+
+  /* Ensure content is not hidden behind the fixed mobile bottom navigation */
+  main {
+    padding-bottom: 84px !important;
+  }
 }
+
+/* ==========================================================================
+   Responsive Navigation Utilities (Desktop vs Mobile Bottom App Bar)
+   ========================================================================== */
+.desktop-nav-bar {
+  display: flex !important;
+}
+
+.mobile-bottom-bar {
+  display: none !important;
+}
+
+.mobile-only-flex {
+  display: none !important;
+}
+
+.desktop-only-flex {
+  display: flex !important;
+}
+
+@media (max-width: 860px) {
+  .desktop-nav-bar {
+    display: none !important;
+  }
+
+  .desktop-only-flex {
+    display: none !important;
+  }
+
+  .mobile-bottom-bar {
+    display: flex !important;
+  }
+
+  .mobile-only-flex {
+    display: flex !important;
+  }
+}
+
+/* Touch feedback for mobile interactive elements */
+.mobile-tab-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.mobile-tab-btn:active {
+  transform: scale(0.94);
+}
+
