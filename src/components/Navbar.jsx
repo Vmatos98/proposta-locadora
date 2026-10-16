@@ -15,6 +15,7 @@ const InstagramIcon = ({ size = 16, color = "currentColor" }) => (
 
 export default function Navbar({ activeView, setActiveView, criticalCount = 2, availableCount = 2 }) {
   const [showDemoDrawer, setShowDemoDrawer] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
 
   const handleSelectView = (viewId) => {
     setActiveView(viewId);
@@ -64,7 +65,7 @@ export default function Navbar({ activeView, setActiveView, criticalCount = 2, a
   return (
     <>
       {/* ===================================================================
-          TOP NAVBAR (Clean, Single Line, No Wrapping on Mobile)
+          TOP NAVBAR & DEMO ANNOUNCEMENT BANNER
           =================================================================== */}
       <header style={{
         position: 'sticky',
@@ -74,14 +75,185 @@ export default function Navbar({ activeView, setActiveView, criticalCount = 2, a
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: '1px solid var(--border-color)',
-        padding: '10px 0',
         boxShadow: 'var(--shadow-xs)'
       }}>
+        {/* Top Demo Notice Banner */}
+        {isBannerVisible && (
+          <div style={{
+            background: 'linear-gradient(90deg, #0f172a 0%, #1e293b 100%)',
+            color: '#ffffff',
+            padding: '8px 16px',
+            fontSize: '12px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            position: 'relative'
+          }}>
+            <div className="container" style={{ padding: 0 }}>
+              {/* DESKTOP BANNER LAYOUT */}
+              <div className="desktop-only-flex" style={{
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1 }}>
+                  <span style={{
+                    background: '#dc2626',
+                    color: '#ffffff',
+                    fontSize: '10px',
+                    fontWeight: '900',
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                    letterSpacing: '0.6px',
+                    textTransform: 'uppercase',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    flexShrink: 0
+                  }}>
+                    <Sparkles size={11} />
+                    Demonstração
+                  </span>
+
+                  <span style={{ color: '#cbd5e1', fontSize: '12.5px', lineHeight: 1.4 }}>
+                    Esta é uma prévia demonstrativa interativa. O sistema definitivo será&nbsp;
+                    <strong style={{ color: '#ffffff', fontWeight: '700' }}>desenvolvido sob medida</strong>
+                    &nbsp;após a definição das necessidades e regras operacionais da sua empresa.
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+                  <button
+                    onClick={() => handleSelectView('proposta')}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.14)',
+                      border: '1px solid rgba(255, 255, 255, 0.25)',
+                      color: '#ffffff',
+                      padding: '4px 12px',
+                      borderRadius: '999px',
+                      fontSize: '11.5px',
+                      fontWeight: '700',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      cursor: 'pointer',
+                      transition: 'background 0.2s',
+                      whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)'}
+                  >
+                    <span>Ver Proposta & ROI</span>
+                    <ChevronRight size={13} />
+                  </button>
+
+                  <button
+                    onClick={() => setIsBannerVisible(false)}
+                    title="Ocultar aviso de demonstração"
+                    aria-label="Ocultar aviso de demonstração"
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      color: '#94a3b8',
+                      padding: '4px',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#ffffff'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
+              </div>
+
+              {/* MOBILE BANNER LAYOUT */}
+              <div className="mobile-only-flex" style={{
+                flexDirection: 'column',
+                gap: '6px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  <span style={{
+                    background: '#dc2626',
+                    color: '#ffffff',
+                    fontSize: '9.5px',
+                    fontWeight: '900',
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                    letterSpacing: '0.6px',
+                    textTransform: 'uppercase',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}>
+                    <Sparkles size={11} />
+                    Demonstração Interativa
+                  </span>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <button
+                      onClick={() => handleSelectView('proposta')}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.15)',
+                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        color: '#ffffff',
+                        padding: '2px 8px',
+                        borderRadius: '999px',
+                        fontSize: '10.5px',
+                        fontWeight: '700',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '3px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <span>Proposta</span>
+                      <ChevronRight size={12} />
+                    </button>
+
+                    <button
+                      onClick={() => setIsBannerVisible(false)}
+                      title="Ocultar aviso"
+                      aria-label="Ocultar aviso"
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        color: '#94a3b8',
+                        padding: '2px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                </div>
+
+                <p style={{
+                  color: '#cbd5e1',
+                  fontSize: '11px',
+                  lineHeight: 1.35,
+                  margin: 0
+                }}>
+                  Esta é uma prévia conceitual. O sistema definitivo será&nbsp;
+                  <strong style={{ color: '#ffffff', fontWeight: '700' }}>desenvolvido sob medida</strong>
+                  &nbsp;após o cliente definir suas necessidades operacionais.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="container" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '12px'
+          gap: '12px',
+          paddingTop: '10px',
+          paddingBottom: '10px'
         }}>
           {/* Left: Brand Logo */}
           <div 
